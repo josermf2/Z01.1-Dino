@@ -18,5 +18,6 @@ begin
 		b when (sel = "01") else
 		c when (sel = "10") else
 		d;
+		
 
 end architecture;
