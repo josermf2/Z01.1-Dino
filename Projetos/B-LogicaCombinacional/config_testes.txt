@@ -4,7 +4,7 @@
 #                                    # 
 # Arquivos de teste do projeto B     #
 #  - Para incluir o teste basta      #
-#  descomentar a linha               #
+#  descomentar a  linha               #
 #                                    #
 ######################################
 
