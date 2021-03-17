@@ -36,11 +36,7 @@ architecture tb of tb_ConceitoA is
 
 begin
 
-<<<<<<< HEAD
   u1: ConceitoA port map('0', sw, hex0, hex1, hex2, open);
-=======
-  u1: ConceitoA port map(clk, sw, hex0, hex1, hex2, open);
->>>>>>> upstream/master
 
   clk_process :process
   begin
@@ -55,7 +51,6 @@ begin
     test_runner_setup(runner, runner_cfg);
 
     sw <= "0000001010";
-<<<<<<< HEAD
     wait until clk='1' ;
     assert(hex3 = "0000001" and hex1 = "1001111" and hex0 = "00000001")  report "Falha em teste: 1" severity error;
 
@@ -66,21 +61,6 @@ begin
     sw <= "0101001101"; -- 333
     wait until clk='1' ;
     assert(hex3 = "0000110" and hex1 = "0000110" and hex0 = "0000110")  report "Falha em teste: 1" severity error;
-=======
-    wait for 10 ns;
-    wait until clk='1' ;
-    assert(hex2 = "0000001" and hex1 = "1001111" and hex0 = "00000001")  report "Falha em teste: 1" severity error;
-
-    sw <= "0000010110"; -- 22
-    wait for 10 ns;
-    wait until clk='1' ;
-    assert(hex2 = "0010010" and hex1 = "0010010" and hex0 = "00000001")  report "Falha em teste: 1" severity error;
-
-    sw <= "0101001101"; -- 333
-    wait for 10 ns;
-    wait until clk='1' ;
-    assert(hex2 = "0000110" and hex1 = "0000110" and hex0 = "0000110")  report "Falha em teste: 1" severity error;
->>>>>>> upstream/master
 
 
     test_runner_cleanup(runner); -- Simulacao acaba aqui

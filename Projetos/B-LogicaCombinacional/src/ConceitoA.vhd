@@ -34,9 +34,5 @@ architecture rtl of ConceitoA is
 ---------------
 begin
 
-<<<<<<< HEAD
 	
-=======
-
->>>>>>> upstream/master
 end rtl;
