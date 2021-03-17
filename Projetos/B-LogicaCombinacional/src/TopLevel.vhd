@@ -38,6 +38,7 @@ architecture rtl of TopLevel is
 -- implementacao
 ---------------
 begin
-          
+	
+	LEDR(9 downto 0) <= "1111111111" when SW = "1001101010";
 
 end rtl;
