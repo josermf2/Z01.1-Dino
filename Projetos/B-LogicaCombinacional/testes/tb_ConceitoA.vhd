@@ -1,3 +1,33 @@
+
+Skip to content
+Pull requests
+Issues
+Marketplace
+Explore
+@BrunoSaboya
+Insper /
+Z01.1
+
+4
+3
+
+    13
+
+Code
+Pull requests 20
+Discussions
+Actions
+Security
+
+    Insights
+
+Z01.1/Projetos/B-LogicaCombinacional/testes/tb_ConceitoA.vhd
+@rafaelcorsi
+rafaelcorsi add clock tb_conceitoA
+Latest commit 3a55760 14 hours ago
+History
+1 contributor
+72 lines (55 sloc) 1.84 KB
 -- Elementos de Sistemas
 -- developed by Luciano Soares
 -- file: tb_ConceitoA.vhd
@@ -36,7 +66,7 @@ architecture tb of tb_ConceitoA is
 
 begin
 
-  u1: ConceitoA port map('0', sw, hex0, hex1, hex2, open);
+  u1: ConceitoA port map(clk, sw, hex0, hex1, hex2, open);
 
   clk_process :process
   begin
@@ -51,19 +81,37 @@ begin
     test_runner_setup(runner, runner_cfg);
 
     sw <= "0000001010";
+    wait for 10 ns;
     wait until clk='1' ;
-    assert(hex3 = "0000001" and hex1 = "1001111" and hex0 = "00000001")  report "Falha em teste: 1" severity error;
+    assert(hex2 = "0000001" and hex1 = "1001111" and hex0 = "00000001")  report "Falha em teste: 1" severity error;
 
     sw <= "0000010110"; -- 22
+    wait for 10 ns;
     wait until clk='1' ;
-    assert(hex3 = "0010010" and hex1 = "0010010" and hex0 = "00000001")  report "Falha em teste: 1" severity error;
+    assert(hex2 = "0010010" and hex1 = "0010010" and hex0 = "00000001")  report "Falha em teste: 1" severity error;
 
     sw <= "0101001101"; -- 333
+    wait for 10 ns;
     wait until clk='1' ;
-    assert(hex3 = "0000110" and hex1 = "0000110" and hex0 = "0000110")  report "Falha em teste: 1" severity error;
+    assert(hex2 = "0000110" and hex1 = "0000110" and hex0 = "0000110")  report "Falha em teste: 1" severity error;
 
 
     test_runner_cleanup(runner); -- Simulacao acaba aqui
 
   end process;
 end architecture;
+
+    © 2021 GitHub, Inc.
+    Terms
+    Privacy
+    Security
+    Status
+    Docs
+
+    Contact GitHub
+    Pricing
+    API
+    Training
+    Blog
+    About
+
