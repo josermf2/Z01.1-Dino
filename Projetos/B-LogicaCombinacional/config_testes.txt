@@ -16,7 +16,7 @@ Not16.vhd
 Or8Way.vhd
 DMux2Way.vhd
 DMux4Way.vhd
-#DMux8Way.vhd
+DMux8Way.vhd
 Mux2Way.vhd
 Mux4Way.vhd
 Mux16.vhd
@@ -31,5 +31,5 @@ sevenSeg.vhd
 
 ##### conceito A e B
 
-#ConceitoB.vhd
+ConceitoB.vhd
 #ConceitoA.vhd
