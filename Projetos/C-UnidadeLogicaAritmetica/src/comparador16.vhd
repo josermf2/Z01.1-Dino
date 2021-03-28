@@ -4,7 +4,6 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.all;
-use IEEE.STD_LOGIC_SIGNED.all;
 
 entity comparador16 is
    port(
@@ -25,6 +24,6 @@ begin
   
   
 	zr <= '1' when (a = "0000000000000000") else '0';
-	ng <= '1' when (a < "1111111111111111") else '0';
+	ng <= '1' when (a(15) = '1') else '0';
 
 end architecture;
