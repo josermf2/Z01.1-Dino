@@ -36,6 +36,8 @@ entity ALU is
 			ny:    	  	in STD_LOGIC;                     -- inverte a entrada y
 			f:     	  	in STD_LOGIC_VECTOR(1 downto 0);         -- se 0 calcula x & y, senão x + y
 			no:        	in STD_LOGIC;                     -- inverte o valor da saída
+			sl: 	   	in STD_LOGIC;
+			sr:   		in STD_LOGIC;
 			zr:        	out STD_LOGIC;                    -- setado se saída igual a zero
 			ng:        	out STD_LOGIC;                    -- setado se saída é negativa
 			saida:     	out STD_LOGIC_VECTOR(15 downto 0); -- saída de dados da ALU
@@ -98,7 +100,7 @@ architecture  rtl OF alu is
 		);
 	end component;
 
-   SIGNAL zxout,zyout,nxout,nyout,andout,adderout,xorout,muxout,precomp: std_logic_vector(15 downto 0);
+   SIGNAL zxout,zyout,nxout,nyout,andout,adderout,xorout,muxout,precomp,shiftl,shiftr: std_logic_vector(15 downto 0);
 	SIGNAL carry: STD_LOGIC;
 	
 begin
@@ -112,17 +114,19 @@ begin
   
   XandY: And16 port map (nxout, nyout, andout);
   XaddY: Add16 port map (nxout, nyout, adderout, carry);
-  
   xorout <= nxout xor nyout;
   
   mux: Mux4Way16 port map (andout, adderout, xorout, "0000000000000000", f, muxout);
   
-  inversor2: inversor16 port map (no, muxout, precomp);
+  inversor: inversor16 port map (no, muxout, precomp);
   
-  comparador: comparador16 port map (precomp, zr, ng);
+  shiftl <= precomp(14 downto 0) & '0' when (sl = '1') else precomp;
+  shiftr <= '0' & precomp(15 downto 1) when (sr = '1') else shiftl;
+  
+  comparador: comparador16 port map (shiftr, zr, ng);
 
   carryout <= carry when (f = "01") else '0';
   
-  saida <= precomp;
+  saida <= shiftr;
 			  
 end architecture;
