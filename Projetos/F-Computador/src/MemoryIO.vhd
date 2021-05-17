@@ -155,5 +155,4 @@ BEGIN
     -- precisar ser: RAM ou SW16
     OUTPUT <= SW16  when (ADDRESS = "101001011000001") else OUTPUT_RAM;
 
-
 END logic;
