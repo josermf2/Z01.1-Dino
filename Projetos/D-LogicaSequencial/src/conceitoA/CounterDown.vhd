@@ -18,12 +18,12 @@ architecture arch of CounterDown is
  
 begin
  
- FFT00: FlipFlopT port map(clock,'1',q0, q0_neg);
- FFT01: FlipFlopT port map(q0,'1',q1, q1_neg);
- FFT02: FlipFlopT port map(q1,'1',q2, q2_neg);
+ --FFT00: FlipFlopT port map(clock,'1',q0, q0_neg);
+ --FFT01: FlipFlopT port map(q0,'1',q1, q1_neg);
+ --FFT02: FlipFlopT port map(q1,'1',q2, q2_neg);
  
- q(0)<=q0;
- q(1)<=q1;
- q(2)<=q2;
+ --q(0)<=q0;
+ --q(1)<=q1;
+ --q(2)<=q2;
 
 end architecture;
