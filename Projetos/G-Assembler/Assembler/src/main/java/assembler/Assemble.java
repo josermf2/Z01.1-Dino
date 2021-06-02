@@ -10,6 +10,7 @@
 package assembler;
 
 import java.io.*;
+import java.util.List;
 
 /**
  * Faz a geração do código gerenciando os demais módulos
@@ -33,7 +34,7 @@ public class Assemble {
         inputFile  = inFile;
         hackFile   = new File(outFileHack);                      // Cria arquivo de saída .hack
         outHACK    = new PrintWriter(new FileWriter(hackFile));  // Cria saída do print para
-                                                                 // o arquivo hackfile
+        // o arquivo hackfile
         table      = new SymbolTable();                          // Cria e inicializa a tabela de simbolos
     }
 
@@ -58,8 +59,16 @@ public class Assemble {
                 /* TODO: implementar */
                 // deve verificar se tal label já existe na tabela,
                 // se não, deve inserir. Caso contrário, ignorar.
+                if (table.contains(label)){
+                    ;
+                }
+                else{
+                    table.addEntry(label, romAddress);
+                }
             }
-            romAddress++;
+            else {
+                romAddress++;
+            }
         }
         parser.close();
 
@@ -78,6 +87,12 @@ public class Assemble {
                     // deve verificar se tal símbolo já existe na tabela,
                     // se não, deve inserir associando um endereço de
                     // memória RAM a ele.
+                    if (table.contains(symbol)){
+                        ;
+                    }
+                    else{
+                        table.addEntry(symbol, ramAddress);
+                    }
                 }
             }
         }
@@ -104,19 +119,28 @@ public class Assemble {
          */
         while (parser.advance()){
             switch (parser.commandType(parser.command())){
-                /* TODO: implementar */
                 case C_COMMAND:
-                break;
-            case A_COMMAND:
-                break;
-            default:
-                continue;
+                    String[] mne = parser.instruction(parser.command());
+                    instruction = "10" + Code.comp(mne) + Code.dest(mne) + Code.jump(mne);
+                    break;
+                case A_COMMAND:
+                    String simbolo = parser.symbol(parser.command());
+                    try{
+                        instruction = "00" + Code.toBinary(simbolo);
+                    } catch (Exception e){
+                        String ramAddress = table.getAddress(simbolo).toString();
+                        instruction = "00" + Code.toBinary(ramAddress);
+                    }
+                    break;
+                default:
+                    continue;
             }
             // Escreve no arquivo .hack a instrução
             if(outHACK!=null) {
                 outHACK.println(instruction);
             }
             instruction = null;
+
         }
     }
 
@@ -141,5 +165,4 @@ public class Assemble {
             e.printStackTrace();
         }
     }
-
 }
