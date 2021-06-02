@@ -97,7 +97,7 @@ public class Parser {
      * @param  command instrução a ser analisada.
      * @return o tipo da instrução.
      */
-    
+
     public CommandType commandType(String command) {
 
         String[] commands = command.split("\\s");
@@ -113,7 +113,6 @@ public class Parser {
 
             return CommandType.C_COMMAND;
         }
-
         else {
             return CommandType.L_COMMAND;
         }
