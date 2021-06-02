@@ -113,11 +113,11 @@ public class Parser {
 
             return CommandType.C_COMMAND;
         }
+
         else {
             return CommandType.L_COMMAND;
         }
     }
-
     /**
      * Retorna o símbolo ou valor numérico da instrução passada no argumento.
      * Deve ser chamado somente quando commandType() é A_COMMAND.
