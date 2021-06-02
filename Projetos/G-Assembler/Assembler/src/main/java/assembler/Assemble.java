@@ -21,6 +21,8 @@ public class Assemble {
     private PrintWriter outHACK = null;    // grava saida do código de máquina em Hack
     boolean debug;                         // flag que especifica se mensagens de debug são impressas
     private SymbolTable table;             // tabela de símbolos (variáveis e marcadores)
+    private boolean nop;
+    private boolean jump;
 
     /*
      * inicializa assembler
@@ -36,6 +38,8 @@ public class Assemble {
         outHACK    = new PrintWriter(new FileWriter(hackFile));  // Cria saída do print para
         // o arquivo hackfile
         table      = new SymbolTable();                          // Cria e inicializa a tabela de simbolos
+        nop        = false;
+        jump       = false;
     }
 
     /**
@@ -122,6 +126,10 @@ public class Assemble {
                 case C_COMMAND:
                     String[] mne = parser.instruction(parser.command());
                     instruction = "10" + Code.comp(mne) + Code.dest(mne) + Code.jump(mne);
+                    if(Code.jump(mne) != "000"){
+                        nop = true;
+                        jump = true;
+                    }
                     break;
                 case A_COMMAND:
                     String simbolo = parser.symbol(parser.command());
@@ -137,10 +145,15 @@ public class Assemble {
             }
             // Escreve no arquivo .hack a instrução
             if(outHACK!=null) {
+                if(nop && (instruction != "100000000000000000") && !jump){
+                    outHACK.println("100000000000000000");
+                    System.out.println("Mais atenção, faltou o nop mas já colocamos pra você!");
+                }
                 outHACK.println(instruction);
             }
             instruction = null;
-
+            jump = false;
+            nop = false;
         }
     }
 

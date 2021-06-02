@@ -72,26 +72,48 @@ class AssemblerZ01 {
         // Starts to read file and generates de outputs
         try {
             // Cria objeto assembler auxiliar
+            if (verbose) {
+                System.out.println("Criando objeto assembler auxiliar...");
+            }
+
             Assemble assembler = new Assemble(  inputFile,
-                                                outputFileHack,
-                                                verbose);
+                    outputFileHack,
+                    verbose);
+
+            if(verbose){
+                System.out.println("Objeto assembler auxiliar criado");
+                System.out.println("Criando tabela de símbolos...");
+            }
 
             // Cria tabela de símbolos
             assembler.fillSymbolTable();
 
+            if(verbose){
+                System.out.println("Tabela de simbolos criada");
+                System.out.println("Criando linguagem de maquina...");
+            }
+
             // Cria linguagem de maquina
             assembler.generateMachineCode();
+
+            if(verbose){
+                System.out.println("Linguagem de maquina criada");
+                System.out.println("Fechando arquivos...");
+            }
 
             // Fecha arquivos
             assembler.close();
 
+            if(verbose){
+                System.out.println("Arquivos fechados");
+            }
             System.exit(0);
 
         } catch (FileNotFoundException ex){
-        	System.out.println("[ERRO] Arquivo \'" + inputFile + "\' encontrado" + "args: \n " +args[0] + args[1] + args[2]);
+            System.out.println("[ERRO] Arquivo \'" + inputFile + "\' encontrado" + "args: \n " +args[0] + args[1] + args[2]);
             System.exit(01);
         } catch (IOException ex) {
-        	System.out.println("[ERRO] Uma excessao de i/o foi lancada");
+            System.out.println("[ERRO] Uma excessao de i/o foi lancada");
             System.exit(01);
         }
 
